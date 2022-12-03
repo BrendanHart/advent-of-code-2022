@@ -30,4 +30,4 @@ countCaloriesPerElfHelper counts currentCount ("" : xs) = countCaloriesPerElfHel
 countCaloriesPerElfHelper counts currentCount (x : xs) = countCaloriesPerElfHelper counts (currentCount + (read x)) xs
 
 findSumOfTopThreeElves :: [String] -> Int
-findSumOfTopThreeElves lines = sum (take 3 (sortBy (flip compare) (countCaloriesPerElf lines)))
+findSumOfTopThreeElves = sum . take 3 . sortBy (flip compare) . countCaloriesPerElf
