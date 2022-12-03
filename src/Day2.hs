@@ -58,4 +58,4 @@ replaceWithChoice (Scissors, Lose) = (Scissors, Paper)
 replaceWithChoice (x, Draw) = (x, x)
 
 day2ex2 :: [(Char, Char)] -> Int
-day2ex2 xs = calculateScore (map replaceWithChoice (map readChoiceAndResult xs))
+day2ex2 = calculateScore . map (replaceWithChoice . readChoiceAndResult)

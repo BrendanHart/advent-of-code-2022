@@ -20,7 +20,7 @@ mapToScore :: Char -> Int
 mapToScore a = if isLower a then ord a - 96 else ord a - 38
 
 day3ex1 :: [[Char]] -> Int
-day3ex1 xs = sum (map (mapToScore . findCharacterInBothCompartments . splitIntoCompartments) xs)
+day3ex1 = sum . map (mapToScore . findCharacterInBothCompartments . splitIntoCompartments)
 
 group :: Int -> [a] -> [[a]]
 group _ [] = []
@@ -37,6 +37,4 @@ findCommonCharacter ((x : xs), ys, zs)
     | otherwise = findCommonCharacter (xs, ys, zs)
 
 day3ex2 :: [String] -> Int
-day3ex2 xs = sum (map (mapToScore . findCommonCharacter . mapToTuple) groupedRucksacks)
-    where
-        groupedRucksacks = group 3 xs
+day3ex2 = sum . map (mapToScore . findCommonCharacter . mapToTuple) . group 3
