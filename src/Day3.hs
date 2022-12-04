@@ -1,6 +1,7 @@
 module Day3 (day3ex1, day3ex2) where
 
 import Data.Char
+import Data.List.Split
 
 splitIntoCompartments' :: [Char] -> Int -> Int -> ([Char], [Char]) -> ([Char], [Char])
 splitIntoCompartments' [] x y acc = acc
@@ -22,12 +23,6 @@ mapToScore a = if isLower a then ord a - 96 else ord a - 38
 day3ex1 :: [[Char]] -> Int
 day3ex1 = sum . map (mapToScore . findCharacterInBothCompartments . splitIntoCompartments)
 
-group :: Int -> [a] -> [[a]]
-group _ [] = []
-group n l
-  | n > 0 = (take n l) : (group n (drop n l))
-  | otherwise = error "Negative or zero n"
-
 mapToTuple :: [String] -> (String, String, String)
 mapToTuple (x : y : z : _) = (x, y, z)
 
@@ -37,4 +32,4 @@ findCommonCharacter ((x : xs), ys, zs)
     | otherwise = findCommonCharacter (xs, ys, zs)
 
 day3ex2 :: [String] -> Int
-day3ex2 = sum . map (mapToScore . findCommonCharacter . mapToTuple) . group 3
+day3ex2 = sum . map (mapToScore . findCommonCharacter . mapToTuple) . chunksOf 3
