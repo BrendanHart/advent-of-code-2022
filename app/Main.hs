@@ -19,6 +19,8 @@ main = do
         runDay4 "res/day4ex1.txt" day4ex2
         runDay5 "res/day5ex.txt" day5ex1
         runDay5 "res/day5ex.txt" day5ex2        
+        runDay6 "res/day6.txt" day6ex1        
+        runDay6 "res/day6.txt" day6ex2        
         
 runDay1 :: String -> ([String] -> Int) -> IO ()
 runDay1 filePath f = do  
@@ -84,3 +86,10 @@ runDay5 filePath f = do
         getMoves input = case parse readMoves "" input of
                 Left err -> error "Failed to read line"
                 Right val -> val
+
+runDay6 :: String -> (String -> Int) -> IO ()
+runDay6 filePath f = do  
+        handle <- openFile filePath ReadMode
+        contents <- hGetContents handle
+        print $ f contents
+        hClose handle   
