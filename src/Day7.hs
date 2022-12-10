@@ -15,7 +15,7 @@ collectDirectoriesMatching f (Directory xs size name) = if f (Directory xs size 
 collectDirectoriesMatching _ (File _ _ ) = []
 
 day7ex2 :: [CommandLine] -> Int
-day7ex2 xs = foldr min 999999999 sizes
+day7ex2 xs = minimum sizes
     where
         diskSize = 70000000
         fs = buildFileStructure xs
