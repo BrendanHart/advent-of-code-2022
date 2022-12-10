@@ -21,6 +21,8 @@ main = do
         runDay5 "res/day5ex.txt" day5ex2        
         runDay6 "res/day6.txt" day6ex1        
         runDay6 "res/day6.txt" day6ex2        
+        runDay7 "res/day7.txt" day7ex1
+        runDay7 "res/day7.txt" day7ex2
         
 runDay1 :: String -> ([String] -> Int) -> IO ()
 runDay1 filePath f = do  
@@ -93,3 +95,20 @@ runDay6 filePath f = do
         contents <- hGetContents handle
         print $ f contents
         hClose handle   
+
+runDay7 :: String -> ([CommandLine] -> Int) -> IO ()
+runDay7 filePath f = do  
+        handle <- openFile filePath ReadMode
+        contents <- hGetContents handle
+        let l = lines contents
+        print $ f (map parseCommandLine l)
+        hClose handle   
+        where
+                parseCommandLine :: String -> CommandLine
+                parseCommandLine ('$' : ' ' : 'c' : 'd' : ' ' : xs) = Cd xs
+                parseCommandLine ('$' : ' ' : 'l' : 's' : _) = Ls
+                parseCommandLine ('d' : 'i' : 'r' : ' ' : xs) = Dir xs
+                parseCommandLine xs = Size (read (result!!0)) (result!!1)
+                        where 
+                                result :: [String]
+                                result = splitOn " " xs
